@@ -10,45 +10,54 @@ import * as Location from 'expo-location';
 
 
 const prayTimes = new PrayerTimes();
-const locations = [
-  {
-    key: 1,
-    label: 'Kuala Lumpur',
-    coord: [-4.565565, 136.887110]
-  }
-]
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
-    this.findCoordinates();
+    // this.findCoordinates();
     this.state = {
       times: prayTimes.getTimes(new Date(), [undefined,undefined], +8, 'auto', '24h'),
       // times: [],
-      location: null,
+      location: "",
     }
   }
 
-  findCoordinates = () => {
-    navigator.geolocation.getCurrentPosition(
-        position => {
-          const location = JSON.stringify(position);
-          console.log(position.coords.latitude);
-          this.setState({ location });
-
-          this.setState({times: prayTimes.getTimes(new Date(),[position.coords.latitude,position.coords.longitude],+8,'auto','24h')});
-
-        },
-        // error => Alert.alert(error.message),
-        error => alert(error.message),
-        { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-    );
-  };
+  // findCoordinates = () => {
+  //   navigator.geolocation.getCurrentPosition(
+  //       position => {
+  //         const location = JSON.stringify(position);
+  //         console.log(position.coords.latitude);
+  //         this.setState({ location });
+  //
+  //         this.setState({times: prayTimes.getTimes(new Date(),[position.coords.latitude,position.coords.longitude],+8,'auto','24h')});
+  //
+  //       },
+  //       // error => Alert.alert(error.message),
+  //       error => alert(error.message),
+  //       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+  //   );
+  // };
+  async componentDidMount() {
+    try {
+      let { status } = await Location.requestPermissionsAsync();
+      if (status !== 'granted') {
+        return;
+      }
+      let location = await Location.getCurrentPositionAsync({});
+      let addressCurrent = await Location.reverseGeocodeAsync(location.coords);
+      console.log(addressCurrent[0].city);
+      this.setState({ location: addressCurrent[0].city});
+      this.setState({times: prayTimes.getTimes(new Date(),[location.coords.latitude,location.coords.longitude],+8,'auto','24h')});
+      // this.updateState(location);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   render() {
     return (
         <ScrollView style={styles.container}>
-          <Header location="Kuala Lumpur" />
+          <Header location={this.state.location} />
           <PrayTimeLists times={this.state.times} />
 
         </ScrollView>
