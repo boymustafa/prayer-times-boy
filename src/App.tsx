@@ -92,19 +92,11 @@ import { Provider} from "mobx-react";
 import { HomeScreen } from './screens/Home';
 import { PrayerTimeScreen } from './screens/PrayerTime';
 import stores from './stores'
-import * as Location from 'expo-location';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import * as Font  from 'expo-font'
-/*
-import {
-    setCustomText
-} from 'react-native-global-props'
-
-*/
+import {AppBarNavigation} from './components/navigations/AppBar';
+import { Avatar } from 'react-native-paper';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-import { Appbar } from 'react-native-paper';
 
 export default class App extends Component {
    state = {
@@ -112,42 +104,21 @@ export default class App extends Component {
         fontLoaded: false
     };
 
-    /*async componentDidMount() {
-        await Font.loadAsync({
-            'DM Sans': 'https://fonts.gstatic.com/s/dmsans/v5/rP2Hp2ywxg089UriCZOIHTWEBlw.woff2'
-        })
-        .then(() => {
-            this.setState({ fontLoaded: true });
-            this.defaultFonts();
-        });
-    }
-
-    defaultFonts(){
-        const customTextProps = {
-            style: {
-                fontFamily: 'DM Sans'
-            }
-        }
-        setCustomText(customTextProps)
-    }*/
-
 
     render() {
         return (
             <Provider {...stores}>
                 <NavigationContainer>
-                    <Appbar.Header>
-                        <Appbar.BackAction  />
-                        <Appbar.Content title="Title"/>
-                        <Appbar.Action icon="dots-horizontal"  />
-                    </Appbar.Header>
-                    <Tab.Navigator>
+                    <AppBarNavigation>
+
+                    </AppBarNavigation>
+                    <Tab.Navigator >
                         <Tab.Screen name="Home" component={HomeScreen}
                                     options={{
                                         tabBarLabel: 'Prayer Time',
                                         tabBarIcon: ({ color, size }) => (
-                                            <MaterialCommunityIcons name="home" color={color} size={size} />
-                                        )
+                                            <Avatar.Icon size={24} icon="home" color={color}/>
+                                        ),
                                     }}
                         />
                         <Tab.Screen name="Prayer Time"
@@ -155,9 +126,8 @@ export default class App extends Component {
                                     options={{
                                         tabBarLabel: 'Prayer Time',
                                         tabBarIcon: ({ color, size }) => (
-                                            <MaterialCommunityIcons name="bell" color={color} size={size} />
+                                            <Avatar.Icon size={24} icon="folder" color={color}/>
                                         ),
-                                        tabBarBadge: 3,
                                     }}
                         />
                     </Tab.Navigator>

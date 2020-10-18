@@ -20,13 +20,13 @@ export class PrayerOverview extends React.Component<OverviewProps>{
         return (
             <View style={tailwind('flex-row justify-between px-5 py-5 bg-teal-300 mb-1')}>
                 <View>
-                    <Text style={tailwind('text-white text-sm')}>Duhr</Text>
+                    <Text style={tailwind('text-white text-sm')}>Zohor</Text>
 
                     <Text style={tailwind('text-white text-3xl')}>1.30 PM</Text>
-                    <Text style={tailwind('text-white text-sm')}>{ location}</Text>
+                    <Text style={tailwind('text-white text-sm')}>Kuala Lumpur</Text>
                 </View>
                 <View style={{ justifyContent: 'center' }}>
-                    <Image style={styles.icon} resizeMode="contain" source={this.props.icon} />
+                    <Image style={styles.icon} resizeMode="contain" source={require('./../../images/dummy.png')} />
                 </View>
             </View>
         )
@@ -35,7 +35,7 @@ export class PrayerOverview extends React.Component<OverviewProps>{
 
 const styles = StyleSheet.create({
     icon: {
-        width: 35,
-        height: 30
+        width: 70,
+        height: 70
     }
 })

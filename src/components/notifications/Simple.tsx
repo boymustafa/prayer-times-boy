@@ -7,6 +7,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 interface Props {
     icon: string;
     text: string;
+    readMore: string;
 }
 
 export  class NotificationSimple extends React.Component <Props>{
@@ -19,7 +20,8 @@ export  class NotificationSimple extends React.Component <Props>{
                                    size={18} />
                 </View>
                 <View style={tailwind('flex-grow flex-shrink')}>
-                    <Text style={tailwind('text-gray-700 text-sm')}>{this.props.text}</Text>
+                    <Text style={tailwind('text-gray-700 text-sm leading-5')}>{this.props.text}</Text>
+                    <Text style={tailwind('text-sm leading-5 font-bold')}>{this.props.readMore}</Text>
                 </View>
             </View>
         )

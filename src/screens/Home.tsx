@@ -10,6 +10,7 @@ import {inject, observer} from "mobx-react";
 import {LocationStore} from "../stores/LocationStore";
 import {PrayerStore} from "../stores/PrayerStore";
 import PrayerTimes from 'prayer-times';
+import {AppBarNavigation} from './components/navigations/AppBar';
 const prayTimes = new PrayerTimes();
 
 interface HomeProps {
@@ -43,12 +44,16 @@ export class HomeScreen extends React.Component<HomeProps>{
     render() {
         console.log(this.props.LocationStore)
         return (
+
                 <ScrollView style={tailwind("flex-1 bg-white")}>
                     <View>
                         <PrayerOverview />
                     </View>
                     <View style={tailwind('p-4')}>
-                        <NotificationSimple icon={'bell'} text={'Welcome to IKHLAS, a line of business under airasia.com that mainly caters to Muslim communities around the world by providing unparalleled access to faith-based practices.'}></NotificationSimple>
+                        <NotificationSimple icon={'bell'} readMore={'Find out more'}
+                                            text={'Welcome to IKHLAS, a line of business under airasia.com that mainly caters to Muslim communities around the world by providing unparalleled access to faith-based practices.'}>
+
+                        </NotificationSimple>
                     </View>
                     <View style={tailwind('p-4')}>
                         <PrayerNext />

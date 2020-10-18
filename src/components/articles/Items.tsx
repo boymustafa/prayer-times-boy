@@ -32,7 +32,7 @@ export  class Articles extends Component {
 
         return (
             <View>
-                <Text style={tailwind('text-lg mb-3')}>Blog</Text>
+                <Text style={tailwind('text-xl mb-3 leading-8 font-medium')}>Blog</Text>
                 <ScrollView
                     ref={(scrollView) => { this.scrollView = scrollView; }}
                     horizontal= {true}
