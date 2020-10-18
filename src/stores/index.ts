@@ -7,7 +7,8 @@
 //
 // import AuthStore from './AuthStore';
 import LocationStore from './LocationStore';
+import PrayerStore from './PrayerStore';
 
 export default {
-    LocationStore,
+    LocationStore,PrayerStore
 }

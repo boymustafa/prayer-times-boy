@@ -8,23 +8,20 @@ import {PrayerNext} from "../components/prayer/Next";
 import * as Location from "expo-location";
 import {inject, observer} from "mobx-react";
 import {LocationStore} from "../stores/LocationStore";
+import {PrayerStore} from "../stores/PrayerStore";
 import PrayerTimes from 'prayer-times';
 const prayTimes = new PrayerTimes();
 
 interface HomeProps {
     LocationStore?: LocationStore
+    PrayerStore?: PrayerStore
 }
 
-@inject('LocationStore')
+@inject('LocationStore', 'PrayerStore')
 @observer
 export class HomeScreen extends React.Component<HomeProps>{
 
-    state = {
-        location: "",
-        times: ""
-    };
     async componentDidMount() {
-
         try {
             let { status } = await Location.requestPermissionsAsync();
             if (status !== 'granted') {
@@ -32,12 +29,12 @@ export class HomeScreen extends React.Component<HomeProps>{
             }
             let location = await Location.getCurrentPositionAsync({});
             let addressCurrent = await Location.reverseGeocodeAsync(location.coords);
-            this.setState({ location: addressCurrent[0].city});
             const times = prayTimes.getTimes(new Date(),[location.coords.latitude,location.coords.longitude],+8,'auto','24h')
 
-            await this.props.LocationStore.setLocation(addressCurrent[0].city)
-
-            this.props.LocationStore.setPrayerTimes(times)
+            // await this.props.LocationStore.setLocation(addressCurrent[0].city)
+            console.log(addressCurrent[0].city);
+            console.log(this.props.LocationStore?.location);
+            await this.props.PrayerStore.setPrayerTimes(times)
         } catch (error) {
             console.log(error);
         }

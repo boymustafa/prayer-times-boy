@@ -15,13 +15,15 @@ export class PrayerOverview extends React.Component<OverviewProps>{
     render() {
 
         const location = this.props.LocationStore.location
+        console.log(this.props.LocationStore.prayerTimesOnly)
+
         return (
             <View style={tailwind('flex-row justify-between px-5 py-5 bg-teal-300 mb-1')}>
                 <View>
                     <Text style={tailwind('text-white text-sm')}>Duhr</Text>
 
                     <Text style={tailwind('text-white text-3xl')}>1.30 PM</Text>
-                    <Text style={tailwind('text-white text-sm')}>{location}</Text>
+                    <Text style={tailwind('text-white text-sm')}>{ location}</Text>
                 </View>
                 <View style={{ justifyContent: 'center' }}>
                     <Image style={styles.icon} resizeMode="contain" source={this.props.icon} />
