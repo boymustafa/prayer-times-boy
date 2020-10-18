@@ -1,15 +1,14 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import PrayTimeItem from './PrayTimeItem';
-import prayNames from '../constants/prayNames';
+import {PrayNames} from '../constants/prayNames';
 import prayIcons from '../constants/prayIcons';
-import colors from '../constants/colors';
 
 
 export default class PrayTimeLists extends React.Component {
     render() {
         const lists = Object.keys(this.props.times).map(key => {
-            const _name = prayNames[key];
+            const _name = PrayNames[key];
             if (key === "imsak" || key === "sunset" || key === "midnight") {
                 return;
             }
